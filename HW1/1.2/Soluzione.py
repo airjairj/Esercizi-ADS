@@ -40,22 +40,22 @@ def split(lista, sinistra, destra):
     return cerca(lista[sinistra], lista[destra])
 
 if __name__ == "__main__":
-    num_esecuzioni = 1
+    # Inserimento numero di esecuzioni
+    num_esecuzioni = int(input("Inserisci il numero di esecuzioni: "))
+    
     while num_esecuzioni > 0:
         
         stringhe = []
         
         prefisso = ""
-        # Inserimento numero di esecuzioni
-        num_esecuzioni = int(input("Inserisci il numero di esecuzioni: "))
 
         # Se è 0 termina
-        if num_esecuzioni == 0:
+        if num_esecuzioni <= 0:
             break
 
         # La sequenza è una serie di input di numero pari a num_esecuzioni
         tastiera = input("Inserisci una stringa o lascia vuoto per elaborare quelle inserite: ")
-        while(tastiera != ""):
+        while tastiera != "":
             stringhe.append(tastiera)
             tastiera = input("Inserisci una stringa o lascia vuoto per elaborare quelle inserite: ")
             
