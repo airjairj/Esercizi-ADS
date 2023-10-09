@@ -1,14 +1,12 @@
 import random
 
 class Nodo:
-    def __init__(self, c_val, p_val):
-        if p_val <= 0:
-            self.priorita = random.randint(1,1000)
-        else:
-            self.priorita = p_val
+    def __init__(self, c_val, p_val, genitore):
+        self.priorita = p_val
         self.chiave = c_val
         self.sin = None
         self.des = None
+        self.padre = genitore
 
 class AlberoBinario:
     def __init__(self):
@@ -17,19 +15,19 @@ class AlberoBinario:
     #region Parte albero binario
     def primo_inserimento(self, c_val, p_val):
         if self.radice is None:
-            self.radice = Nodo(c_val,p_val)
+            self.radice = Nodo(c_val,p_val, None)
         else:
             self.inserimento(c_val, self.radice, p_val)
 
     def inserimento(self, c_val, rad, p_val):
         if c_val < rad.chiave:
             if rad.sin is None:
-                rad.sin = Nodo(c_val,p_val)
+                rad.sin = Nodo(c_val,p_val, rad)
             else:
                 self.inserimento(c_val, rad.sin, p_val)
         else:
             if rad.des is None:
-                rad.des = Nodo(c_val,p_val)
+                rad.des = Nodo(c_val,p_val, rad)
             else:
                 self.inserimento(c_val, rad.des, p_val)
 
@@ -56,11 +54,10 @@ class AlberoBinario:
         nodo.des = None
         nodo.sin = None
         # Riassegno
-        nodo = figlio_da_ruotare
-        nodo.des = nodo_originale
-        nodo.des.des = figlio_altro
-        # Prio
-        nodo_originale.priorita = max(nodo_originale.sin.priorita if nodo_originale.sin else 0, nodo_originale.des.priorita if nodo_originale.des else 0, nodo_originale.priorita)
+        figlio_da_ruotare.des = nodo_originale
+        figlio_da_ruotare.des.des = figlio_altro
+        nodo.padre.sin = figlio_da_ruotare
+        
         return nodo
 
     def scambio_destra(self, nodo):
@@ -71,18 +68,13 @@ class AlberoBinario:
         # Pulisco le var
         nodo.des = None
         nodo.sin = None
-        nodo = None
         # Riassegno
-        nodo = figlio_da_ruotare
-        nodo.sin = nodo_originale
-        nodo.sin.sin = figlio_altro
-        # Prio        
-        nodo_originale.priorita = max(nodo_originale.sin.priorita if nodo_originale.sin else 0, nodo_originale.des.priorita if nodo_originale.des else 0, nodo_originale.priorita)
+        figlio_da_ruotare.sin = nodo_originale
+        figlio_da_ruotare.sin.sin = figlio_altro
+        nodo.padre.des = figlio_da_ruotare
+        #nodo = figlio_da_ruotare
+
         return nodo
-
-    def OOOO(self,nodo):
-        return Nodo(100,1000)
-
     #endregion
 
     #region Parte stampa
