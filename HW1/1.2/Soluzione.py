@@ -19,7 +19,6 @@ def cerca(str_sinistra, str_destra):
 
     return prefisso
 
-
 def split(lista, sinistra, destra):
     """
     Data una lista, il suo valore più a "sinistra" (il primo) ed il suo valore più a "destra" (l'ultimo)
@@ -37,6 +36,7 @@ def split(lista, sinistra, destra):
     split(lista, sinistra, centro)
     split(lista, centro + 1, destra)
 
+    # Parametri della funzione cerca sono elementi della lista alla posizione sinistra e destra
     return cerca(lista[sinistra], lista[destra])
 
 if __name__ == "__main__":
