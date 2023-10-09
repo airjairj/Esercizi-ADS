@@ -2,7 +2,10 @@ import random
 
 class Nodo:
     def __init__(self, c_val, p_val):
-        self.priorita = p_val
+        if p_val <= 0:
+            self.priorita = random.randint(1,1000)
+        else:
+            self.priorita = p_val
         self.chiave = c_val
         self.sin = None
         self.des = None
@@ -30,40 +33,71 @@ class AlberoBinario:
             else:
                 self.inserimento(c_val, rad.des, p_val)
 
-        # Dopo l'inserimento, controlla ed esegue rotazioni se serve
-        rad = self.rotazioni(rad)
+        # Dopo l'inserimento, controlla ed esegue scambi se serve
+        rad = self.scambi(rad)
     #endregion
 
     #region Parte heap
-    def rotazioni(self, nodo):
+    def scambi(self, nodo):
         if nodo.sin and nodo.sin.priorita < nodo.priorita:
             # Rotazione a destra
-            self.rotazione_destra(nodo)
+            self.scambio_sinistra(nodo) #SINISTRA
 
         if nodo.des and nodo.des.priorita < nodo.priorita:
             # Rotazione a sinistra
-            self.rotazione_sinistra(nodo)
+            self.scambio_destra(nodo) #DESTRA
 
-    def rotazione_destra(self, nodo):
-        figlio_sin = nodo.sin
-        nodo.sin = figlio_sin.des
-        figlio_sin.des = nodo
-        return figlio_sin
+    def scambio_sinistra(self, nodo):
+        # Salvo i cretini da scambiare
+        figlio_da_ruotare = nodo.sin
+        figlio_altro = nodo.des
+        nodo_originale = nodo
+        # Pulisco le var
+        nodo.des = None
+        nodo.sin = None
+        # Riassegno
+        nodo = figlio_da_ruotare
+        nodo.des = nodo_originale
+        nodo.des.des = figlio_altro
+        # Prio
+        nodo_originale.priorita = max(nodo_originale.sin.priorita if nodo_originale.sin else 0, nodo_originale.des.priorita if nodo_originale.des else 0, nodo_originale.priorita)
+        return nodo
 
-    def rotazione_sinistra(self, nodo):
-        figlio_des = nodo.des
-        nodo.des = figlio_des.sin
-        figlio_des.sin = nodo
-        return figlio_des
+    def scambio_destra(self, nodo):
+        # Salvo i cretini da scambiare
+        figlio_da_ruotare = nodo.des
+        figlio_altro = nodo.sin
+        nodo_originale = nodo
+        # Pulisco le var
+        nodo.des = None
+        nodo.sin = None
+        nodo = None
+        # Riassegno
+        nodo = figlio_da_ruotare
+        nodo.sin = nodo_originale
+        nodo.sin.sin = figlio_altro
+        # Prio        
+        nodo_originale.priorita = max(nodo_originale.sin.priorita if nodo_originale.sin else 0, nodo_originale.des.priorita if nodo_originale.des else 0, nodo_originale.priorita)
+        return nodo
+
+    def OOOO(self,nodo):
+        return Nodo(100,1000)
+
     #endregion
 
     #region Parte stampa
     def stampa_albero(self, radice=None, livello=0, prefisso="Radice: "):
+        if radice is None:
+            radice = self.radice
+
         if radice is not None:
-            print(" " * (livello * 4) + prefisso + str(radice.chiave) + f" (Prio: {radice.priorita})")
+            print(" " * (livello * 4) + prefisso + str(radice.chiave) + f" (Pri: {radice.priorita})")
             if radice.sin is not None or radice.des is not None:
-                self.stampa_albero(radice.sin, livello + 1, "Sin: ")
-                self.stampa_albero(radice.des, livello + 1, "Des: ")
+                if radice.sin is not None:
+                    self.stampa_albero(radice.sin, livello + 1, "Sin: ")
+                if radice.des is not None:
+                    self.stampa_albero(radice.des, livello + 1, "Des: ")
+
     #endregion
 
 if __name__ == "__main__":
