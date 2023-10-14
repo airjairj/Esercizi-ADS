@@ -1,6 +1,5 @@
 def mergeSort(seq, sinistra, centro, destra):
-    # Reset conteggio
-    distanza = []
+
     # Calcolo del numero di elementi a sinistra e a destra
     lunghezza_sinistra = centro - sinistra + 1
     lunghezza_destra = destra - centro
@@ -18,13 +17,11 @@ def mergeSort(seq, sinistra, centro, destra):
         if lista_sinistra[i] <= lista_destra[j]:
             seq[k] = lista_sinistra[i]
             i += 1
-            distanza[k] += abs(lista_sinistra[i] - lista_destra[j])
         
         # Se l'elemento a destra è <= di quello a sinistra lo ordino prima, ed aumento SOLO L'INDICE DI DESTRA
         else:
             seq[k] = lista_destra[j]
             j += 1
-            distanza[k] += abs(lista_sinistra[i] - lista_destra[j])
 
         k += 1
 
@@ -39,14 +36,15 @@ def mergeSort(seq, sinistra, centro, destra):
         j += 1
         k += 1
 
-    d_min= 0
+    if len(seq)%2 == 0:
 
-    for kk in distanza:
-        
-        if d_min > distanza[kk]:
-            d_min = distanza[kk]
+        #pari elementi nella lista
+        if abs(seq[((len(seq)-1)//2)] - seq[0]) < abs(seq[((len(seq))//2)] - seq[len(seq)-1]):
+            return seq[((len(seq)-1)//2)]
+        else:
+            return seq[((len(seq))//2)]
 
-    return d_min
+
 
 def mergeSplit(seq, sinistra, destra):
     # Inizializzo il conteggio a 0
@@ -58,8 +56,8 @@ def mergeSplit(seq, sinistra, destra):
         centro = (sinistra + destra) // 2
 
         # Ricorsione da sinistra al centro e da centro+1 a destra
-        distanza = mergeSplit(seq, sinistra, centro)
-        distanza = mergeSplit(seq, centro + 1, destra)
+        mergeSplit(seq, sinistra, centro)
+        mergeSplit(seq, centro + 1, destra)
 
         # Avvio il sort
         distanza =  mergeSort(seq, sinistra, centro, destra)
@@ -72,8 +70,10 @@ if __name__ == "__main__":
     while num_test > 0:
         num_parenti = int(input("Inserisci il numero di parenti:"))
         
-        num_civici = [int(input(f"Inserisci il numero civico ({i}/{num_parenti}):")) for i in range(num_parenti)]
+        num_civici = [int(input(f"Inserisci il numero civico ({i+1}/{num_parenti}):")) for i in range(num_parenti)]
         
-        mergeSplit(num_civici, 0, len(num_civici)-1)
+        output = mergeSplit(num_civici, 0, len(num_civici)-1)
+
+        print(output)
 
         num_test -= 1

@@ -1,79 +1,20 @@
-def mergeSort(seq, sinistra, centro, destra):
-    # Reset conteggio
-    distanza = []
-    # Calcolo del numero di elementi a sinistra e a destra
-    lunghezza_sinistra = centro - sinistra + 1
-    lunghezza_destra = destra - centro
+def calcola_posizione(profondita, num_palla):
+    position = 1
 
-    # Faccio slicing della sequenza in 2 liste, una che va da sinistra al centro, e l'altra che va dal centro+1 a destra
-    lista_sinistra = seq[sinistra:centro + 1]
-    lista_destra = seq[centro + 1:destra + 1]
+    for i in range(profondita - 1, 0, -1):
+        sinistra = num_palla % 2 == 1
+        num_palla = (num_palla + 1) // 2
 
-    # Contatori
-    i, j, k = 0, 0, sinistra
-
-    # Faccio il merge confrontando ogni elemento a sinistra e destra, quindi fino a che ho da confrontare:
-    while i < lunghezza_sinistra and j < lunghezza_destra:
-        # Se l'elemento a sinistra è <= di quello a destra lo ordino prima, ed aumento SOLO L'INDICE DI SINISTRA
-        if lista_sinistra[i] <= lista_destra[j]:
-            seq[k] = lista_sinistra[i]
-            i += 1
-            distanza[k] += abs(lista_sinistra[i] - lista_destra[j])
-        
-        # Se l'elemento a destra è <= di quello a sinistra lo ordino prima, ed aumento SOLO L'INDICE DI DESTRA
+        if sinistra:
+            position = 2 * position
         else:
-            seq[k] = lista_destra[j]
-            j += 1
-            distanza[k] += abs(lista_sinistra[i] - lista_destra[j])
+            position = 2 * position + 1
 
-        k += 1
-
-    # Quando una delle due lista termina prima dell'altra aggiungo gli elementi di quella che è rimastra alla sequenza
-    while i < lunghezza_sinistra:
-        seq[k] = lista_sinistra[i]
-        i += 1
-        k += 1
-
-    while j < lunghezza_destra:
-        seq[k] = lista_destra[j]
-        j += 1
-        k += 1
-
-    d_min= 0
-
-    for kk in distanza:
-        
-        if d_min > distanza[kk]:
-            d_min = distanza[kk]
-
-    return d_min
-
-def mergeSplit(seq, sinistra, destra):
-    # Inizializzo il conteggio a 0
-    distanza = 0
-
-    # Se posso dividere, divido (se l'elemento a sinistra è >= di quello a destra non ha senso dividere)
-    if sinistra < destra:
-        # Trovo il centro con la divisione intera ( // ) 
-        centro = (sinistra + destra) // 2
-
-        # Ricorsione da sinistra al centro e da centro+1 a destra
-        distanza = mergeSplit(seq, sinistra, centro)
-        distanza = mergeSplit(seq, centro + 1, destra)
-
-        # Avvio il sort
-        distanza =  mergeSort(seq, sinistra, centro, destra)
-
-    return distanza
+    return position
 
 if __name__ == "__main__":
-    num_test = int(input("Inserisci il numero di test case:"))
-
-    while num_test > 0:
-        num_depth = int(input("Inserisci il numero di profondità:"))
-        
-        num_palla = int(input("Inserisci il numero di palla:"))
-        
-        mergeSplit(num_depth, 0, len(num_civici)-1)
-
-        num_test -= 1
+    T = int(input("Inserisci il numero di casi di test: "))
+    for k in range(T):
+        profondita, num_palla = map(int, input().split())
+        output = calcola_posizione(profondita, num_palla)
+        print(output)
