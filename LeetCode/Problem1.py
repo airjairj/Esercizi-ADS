@@ -1,4 +1,5 @@
 #region INFO
+
 ### TRACCIA:
 # Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 # You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -10,10 +11,11 @@
 ### RISULTATI:
 
 # Runtime 38ms
-# Beats 78.02%of users with Python
+# Beats 78.02% of users with Python
 
 # Memory 14.14MB
-# Beats 50.21%of users with Python
+# Beats 50.21% of users with Python
+
 #endregion
 
 class Solution(object):
@@ -33,19 +35,3 @@ class Solution(object):
                        
                     
             dic[nums[i]] = i
-        
-if __name__ == "__main__":
-
-    num_numeri = int(input())
-    numeri = []
-
-
-    for i in range(num_numeri):
-
-        numeri.append(int(input(f"NUMERO ({i+1}/{num_numeri}):")))
-    
-    somma = int(input("SOMMA:"))
-
-    soluzione = Solution()
-    soluzione = Solution.twoSum(soluzione,numeri,somma)
-    print(soluzione)
