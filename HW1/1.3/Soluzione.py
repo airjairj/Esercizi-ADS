@@ -172,3 +172,7 @@ if __name__ == "__main__":
     # Stampa dell'albero con la funzione stampa_albero
     print("\nAlbero:")
     albero.stampa_albero()
+
+#------------------------------------------------------------------------------------------
+# La complessità è : O(m*log(n))
+# con m = la lunghezza della stringa più corta (nella fase di ricerca del prefisso)

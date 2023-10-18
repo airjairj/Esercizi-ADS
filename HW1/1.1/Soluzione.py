@@ -71,17 +71,20 @@ def mergeSplit(seq, sinistra, destra):
 if __name__ == "__main__":
     while True:
         # Inserimento lunghezza sequenza
-        lunghezza_sequenza = int(input("Inserisci la lunghezza della sequenza: "))
+        lunghezza_sequenza = int(input())
 
         # Se lunghezza è 0 ferma il programma
         if lunghezza_sequenza == 0:
             break
 
         # La sequenza è una serie di input di numero pari a lunghezza_sequenza
-        sequenza = [int(input(f"Inserisci il valore {k+1}/{lunghezza_sequenza} della sequenza: ")) for k in range(lunghezza_sequenza)]
+        sequenza = [int(input()) for k in range(lunghezza_sequenza)]
         
         # Conto il numero di scambi della sequenza
         inversioni_totali = mergeSplit(sequenza, 0, len(sequenza) - 1)
         
         # Stampo a video
-        print("Costo totale: ", inversioni_totali,"\n")
+        print(inversioni_totali,"\n")
+
+#------------------------------------------------------------------------------------------
+# La complessità è quella di un merge-sort: O(n*log(n))

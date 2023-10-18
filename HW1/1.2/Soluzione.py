@@ -65,3 +65,7 @@ if __name__ == "__main__":
         # Stampo a video
         print("Prefisso comune più lungo: ", prefisso,"\n")
         num_esecuzioni -= 1
+
+#------------------------------------------------------------------------------------------
+# La complessità è : O(m*log(n))
+# con m = la lunghezza della stringa più corta (nella fase di ricerca del prefisso)
