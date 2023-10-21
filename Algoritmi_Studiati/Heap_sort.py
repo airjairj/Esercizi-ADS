@@ -2,7 +2,8 @@
 #
 # Basato sulla struttura dati heap, versione max-heap
 #
-# Complessità: O(nlog(n))
+# Complessità: 
+# Caso peggiore: O(nlog(n))
 #
 # Ordina sul posto
 #
