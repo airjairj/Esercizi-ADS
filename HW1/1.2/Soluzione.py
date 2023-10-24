@@ -58,5 +58,5 @@ if __name__ == "__main__":
         num_esecuzioni -= 1
 
 #------------------------------------------------------------------------------------------
-# La complessità è : O(m*log(n))
-# con m = la lunghezza della stringa più corta (nella fase di ricerca del prefisso)
+# La complessità è : O(m*log(n)), 
+# con n è il numero di stringhe ed m è la lunghezza massima di una singola stringa nell'input.
