@@ -1,43 +1,34 @@
-def cerca(str_sinistra, str_destra):
+def cerca(sinistra, destra):
     """
     Date due stringhe le scorre per cercare una sottostringa, usando la più breve come riferimento.
     Ritorna un prefisso comune
     """
 
-    # Inizializzo il prefisso a 0
-    prefisso = ""
-
     # Cerco il più piccolo, cosi da fare meno cicli
-    lun_min = min(len(str_sinistra), len(str_destra))
+    min_len = min(len(sinistra), len(destra))
 
     # Comparo le due stringhe lettera a lettera
-    for i in range(lun_min):
-        if str_sinistra[i] == str_destra[i]:
-            prefisso += str_sinistra[i]
-        else:
-            break
-
-    return prefisso
+    for i in range(min_len):
+        if sinistra[i] != destra[i]:
+            return sinistra[:i]
+    return sinistra[:min_len]
 
 def split(lista, sinistra, destra):
     """
     Data una lista, il suo valore più a "sinistra" (il primo) ed il suo valore più a "destra" (l'ultimo)
     la spezza a metà e ripete ricorsivamente la cosa finchà possibile
     """
-
-    # Se posso dividere, divido (se l'elemento a sinistra è >= di quello a destra non ha senso dividere)
+        
     if sinistra == destra:
-        return sinistra
-    
-    # Trovo il centro con la divisione intera ( // ) 
+        return lista[sinistra]
+
     centro = (sinistra + destra) // 2
 
-    # Ricorsione da sinistra al centro e da centro+1 a destra
-    split(lista, sinistra, centro)
-    split(lista, centro + 1, destra)
+    prefisso_sin = split(lista, sinistra, centro)
+    prefisso_des = split(lista, centro + 1, destra)
 
-    # Parametri della funzione cerca sono elementi della lista alla posizione sinistra e destra
-    return cerca(lista[sinistra], lista[destra])
+    return cerca(prefisso_sin, prefisso_des)
+
 
 if __name__ == "__main__":
     # Inserimento numero di esecuzioni
