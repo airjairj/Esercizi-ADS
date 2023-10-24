@@ -164,7 +164,7 @@ if __name__ == "__main__":
     # Inserimento
     for i in range(num_nodi):
         valore = int(input(f"Inserisci il nodo ({i+1}/{num_nodi}):"))
-        prio = int(input(f"Inserisci la priorita del nodo ({i+1}/{num_nodi}):"))
+        prio = random.randint(0,100)
         
         # Chiamo la funzione di inserimento (in realtà del primo inserimento, è gestito tutto qua)
         albero.primo_inserimento(valore, prio)
@@ -174,5 +174,10 @@ if __name__ == "__main__":
     albero.stampa_albero()
 
 #------------------------------------------------------------------------------------------
-# La complessità è : O(m*log(n))
-# con m = la lunghezza della stringa più corta (nella fase di ricerca del prefisso)
+# La complessità è : O(n*log(n))
+# L'inserimento ha complessità O(log(n)) dato che il caso peggiore 
+# prevede di inserire alle foglie dell'albero, scorrendo l'albero in altezza.
+# La parte degli scambi ha invece complessità O(n*log(n)) dato che il caso peggiore 
+# prevede di scambiare l'ultimo elemento aggiunto con la radice, risalendo intero l'altezza dell'albero.
+# Se supponiamo di farlo per tutti gli n elementi abbiamo O(n*log(n))
+# La complessità totale è quindi O(n*log(n))
