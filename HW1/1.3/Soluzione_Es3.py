@@ -181,3 +181,58 @@ if __name__ == "__main__":
 # prevede di scambiare l'ultimo elemento aggiunto con la radice, risalendo intero l'altezza dell'albero.
 # Se supponiamo di farlo per tutti gli n elementi abbiamo O(n*log(n))
 # La complessità totale è quindi O(n*log(n))
+
+# CASI DI TEST:
+# Sample Input
+# Inserisci il numero di nodi dell'albero:10
+# Inserisci il nodo (1/10):5
+# Inserisci il nodo (2/10):4
+# Inserisci il nodo (3/10):6
+# Inserisci il nodo (4/10):8
+# Inserisci il nodo (5/10):7
+# Inserisci il nodo (6/10):9
+# Inserisci il nodo (7/10):2
+# Inserisci il nodo (8/10):1
+# Inserisci il nodo (9/10):3
+# Inserisci il nodo (10/10):0
+#
+# Sample Output
+# Albero:
+# Radice: 2 (Pri: 1)
+#     Sin: 0 (Pri: 84)
+#         Des: 1 (Pri: 90)
+#     Des: 8 (Pri: 5)
+#         Sin: 5 (Pri: 15)
+#             Sin: 3 (Pri: 24)
+#                 Des: 4 (Pri: 57)
+#             Des: 6 (Pri: 18)
+#                 Des: 7 (Pri: 65)
+#         Des: 9 (Pri: 8)
+
+# Sample Input
+# Inserisci il numero di nodi dell'albero:5
+# Inserisci il nodo (1/5):7
+# Inserisci il nodo (2/5):5
+# Inserisci il nodo (3/5):3
+# Inserisci il nodo (4/5):9
+# Inserisci il nodo (5/5):1
+#
+# Sample Output
+# Albero:
+# Radice: 3 (Pri: 7)
+#     Sin: 1 (Pri: 32)
+#     Des: 7 (Pri: 24)
+#         Sin: 5 (Pri: 64)
+#         Des: 9 (Pri: 47)
+
+# Sample Input
+# Inserisci il numero di nodi dell'albero:3
+# Inserisci il nodo (1/3):1
+# Inserisci il nodo (2/3):2
+# Inserisci il nodo (3/3):3
+#
+# Sample Output
+# Albero:
+# Radice: 1 (Pri: 24)
+#     Des: 3 (Pri: 31)
+#         Sin: 2 (Pri: 51)

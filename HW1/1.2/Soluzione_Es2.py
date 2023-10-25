@@ -34,7 +34,7 @@ def split(lista, sinistra, destra):
 
 if __name__ == "__main__":
     # Inserimento numero di esecuzioni
-    num_esecuzioni = int(input("Inserisci il numero di esecuzioni: "))
+    num_esecuzioni = int(input())
     
     while num_esecuzioni > 0:
         
@@ -47,16 +47,16 @@ if __name__ == "__main__":
             break
 
         # La sequenza è una serie di input di numero pari a num_esecuzioni
-        tastiera = input("Inserisci una stringa o lascia vuoto per elaborare quelle inserite: ")
+        tastiera = input()
         while tastiera != "":
             stringhe.append(tastiera)
-            tastiera = input("Inserisci una stringa o lascia vuoto per elaborare quelle inserite: ")
+            tastiera = input()
             
 
         prefisso = split(stringhe, 0, len(stringhe)-1)
 
         # Stampo a video
-        print("Prefisso comune più lungo: ", prefisso,"\n")
+        print(prefisso)
         num_esecuzioni -= 1
 
 #------------------------------------------------------------------------------------------
@@ -66,3 +66,44 @@ if __name__ == "__main__":
 # La ricerca del prefisso avviene invece con un ciclo che "gira" per k volte, dove k è la stringa minore
 # tra le 2 stringhe confrontate, chiamo m la lunghezza massima di una singola stringha, e quindi la
 # complessità per la ricerca è O(m)
+# La complessità totale è quindi O(m*log(n))
+
+# CASI DI TEST:
+# Sample Input (N.B. per terminare il caso di test premere solo invio, senza scrivere nulla)
+# 1
+# apple
+# ape
+# april
+# applied
+# 
+# Sample Output
+# ap
+
+# Sample Input 
+# 2
+# fiore
+# albero
+# casa
+# fiorire
+# alberto
+#
+# Sample Output
+#
+# pesca
+# partita
+# partire
+# peso
+#
+# Sample Output
+# p
+
+# Sample Input
+# 1
+# fiore
+# fiorellino
+# fioraio
+# fiorista
+# fiori
+#
+# Sample Output
+# fior

@@ -88,3 +88,38 @@ if __name__ == "__main__":
 
 #------------------------------------------------------------------------------------------
 # La complessità è quella di un merge-sort: O(n*log(n))
+
+# CASI DI TEST:
+# Sample Input 
+# 10
+# 9
+# 8
+# 6
+# 3
+# 2
+# 0
+# 1
+# 5
+# 4
+# 7
+# Sample Output
+# 29
+
+# Sample Input 
+# 6
+# 9
+# 1
+# 0
+# 5
+# 4
+# 71
+# Sample Output
+# 6
+
+# Sample Input 
+# 3
+# 1
+# 2
+# 3
+# Sample Output
+# 0
