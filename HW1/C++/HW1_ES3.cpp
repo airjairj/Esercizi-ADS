@@ -355,7 +355,7 @@ int main() {
 //                    Des: 6 (Pri: 67)
 //                        Sin: 5 (Pri: 74)
 //                        Des: 7 (Pri: 79)
-//                  Des: 9 (Pri: 65)
+//                Des: 9 (Pri: 65)
 
 // Sample Input
 // Inserisci il numero di nodi dell'albero: 4
