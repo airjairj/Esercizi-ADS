@@ -18,7 +18,6 @@
 
 #endregion
 
-
 class Solution(object):
     """
     :type nums: List[int]
