@@ -1,56 +1,117 @@
 def trovaPosizioni(n):
-    def cercaSicuro(riga, colonna):
-        # Check the column
-        for i in range(riga):
-            if scacchiera[i][colonna] == "Q":
-                return False
-
-        # Check the upper-left diagonal
-        i, j = riga, colonna
-        while i >= 0 and j >= 0:
-            if scacchiera[i][j] == "Q":
-                return False
-            i -= 1
-            j -= 1
-
-        # Check the upper-right diagonal
-        i, j = riga, colonna
-        while i >= 0 and j < n:
-            if scacchiera[i][j] == "Q":
-                return False
-            i -= 1
-            j += 1
-
-        return True
-
     scacchiera = [["." for _ in range(n)] for _ in range(n)]
-    q_piazzate = 0
-    colonna = 0
+    combinazioni = 0
 
-    while q_piazzate != n:
-        for i in range(n):
-            if cercaSicuro(i, colonna):
-                scacchiera[i][colonna] = "Q"
-                q_piazzate += 1
-                colonna += 1
-                break
-        else:
-            # If no safe position was found, backtrack
-            if colonna == 0:
-                return None  # No solution found
-            colonna -= 1
+    def provaCombinazione(comb,scacc):
+        for colonna in range(n):
+            colonna_iniziale = colonna
+            riga = 0
+            scacc = [["." for _ in range(n)] for _ in range(n)] # Reset
+            comb += piazzaRegine(riga,colonna_iniziale,n,scacc,n*n)
+        return comb
+        
+    def piazzaRegine(r,c,n,s,rimasti):
+        print("PROVO")
+        piazzate = 0
+        spazi_rimasti = rimasti
+        # Trovato spazio libero
+        if s[r][c] == ".":
+            riga_t = r
+            colonna_t = c
+
+            #region segno spazi vietati
+            # Cambio riga a destra
+            while colonna_t < n:
+                if s[riga_t][colonna_t] != "x":
+                    s[riga_t][colonna_t] = "x"
+                    spazi_rimasti -= 1
+                colonna_t +=1
+                    
+            colonna_t = c
+            # Cambio riga a sinistra
+            while colonna_t >= 0:
+                if s[riga_t][colonna_t] != "x":
+                    s[riga_t][colonna_t] = "x"
+                    spazi_rimasti -= 1
+                colonna_t -=1
+            colonna_t = c
+            # Cambio colonna sotto
+            while riga_t < n:
+                if s[riga_t][colonna_t] != "x":
+                    s[riga_t][c] = "x"
+                    spazi_rimasti -= 1
+                riga_t +=1
+            riga_t = r
+            # Cambio colonna sopra
+            while riga_t >= 0:
+                if s[riga_t][colonna_t] != "x":
+                    s[riga_t][c] = "x"
+                    spazi_rimasti -= 1
+                riga_t -=1
+            riga_t = r
+            colonna_t = c
+            # Cambio diagonali sotto
+            while riga_t < n and colonna_t < n:
+                if s[riga_t][colonna_t] != "x":
+                    s[riga_t][colonna_t] = "x"
+                    spazi_rimasti -= 1
+                riga_t +=1
+                colonna_t += 1
+            riga_t = r
+            colonna_t = c
+            while riga_t < n and colonna_t >= 0:
+                if s[riga_t][colonna_t] != "x":
+                    s[riga_t][colonna_t] = "x"
+                    spazi_rimasti -= 1
+                riga_t +=1
+                colonna_t -= 1
+            riga_t = r
+            colonna_t = c
+            # Cambio diagonali sopra
+            while riga_t >= 0 and colonna_t >= 0:
+                if s[riga_t][colonna_t] != "x":
+                    s[riga_t][colonna_t] = "x"
+                    spazi_rimasti -= 1
+                riga_t -=1
+                colonna_t -= 1
+            riga_t = r
+            colonna_t = c
+            while riga_t >= 0 and colonna_t < n:
+                if s[riga_t][colonna_t] != "x":
+                    s[riga_t][colonna_t] = "x"
+                    spazi_rimasti -= 1
+                riga_t -=1
+                colonna_t += 1
+            # Piazzo la regina
+            s[r][c] = "o"
+            piazzate += 1
+            #endregion
+            
+            # Stampo la scacchiera
             for i in range(n):
-                if scacchiera[i][colonna] == "Q":
-                    scacchiera[i][colonna] = "."
-                    q_piazzate -= 1
+                print(s[i])
+                if i == n-1:
+                    print("\n")
 
-    return scacchiera
+            if piazzate == n:
+                return 1
+        
+        if spazi_rimasti < n-piazzate:
+            # Backtrack all'ultimo stato sicuro
+            return 0
+        elif piazzate == n:
+            # Non ho bisogno di continuare
+            return 1
+        else:
+            # Salvo questo come stato sicuro e re itero
+            return piazzaRegine(r,c+1,n,s,spazi_rimasti)
+
+
+    combinazioni = provaCombinazione(combinazioni,scacchiera)
+
+    return combinazioni
 
 if __name__ == "__main__":
-    numero = int(input("n = : "))
+    numero = int(input())
     output = trovaPosizioni(numero)
-    if output is not None:
-        for riga in output:
-            print(" ".join(riga))
-    else:
-        print("Nessuna soluzione trovata")
+    print("SOLUZIONI TROVATE:",output)
