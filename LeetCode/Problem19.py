@@ -11,7 +11,7 @@
 # Runtime 10ms
 # Beats 93.07% of users with Python
 
-# 13.26MB
+# Memory 13.26MB
 # Beats 37.59% of users with Python
 
 #endregion
