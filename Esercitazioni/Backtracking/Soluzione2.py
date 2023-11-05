@@ -1,33 +1,27 @@
-def Soluzione(pista, dim_riga,dim_col, riga, col, percorso,migliore):
+def Soluzione(pista, dim_riga, dim_col, riga, col, attuale):
+    
+    if not (0 <= riga < dim_riga) or not (0 <= col < dim_col):
+        return attuale
 
-    if (col < dim_col-1 and col >= 0) and pista[riga][col + 1] < pista[riga][col]:                         # Vado a destra      
-        percorso.append([riga,col])
-        result = Soluzione(pista, dim_riga,dim_col,riga,col+1,percorso,migliore+1)
-        if result > migliore:                                          
-            return migliore                                              
-        percorso.pop()   
+    max_attuale = attuale  # Keep track of the current path length
 
-    if (col < dim_col-1 and col >= 0) and pista[riga][col - 1] < pista[riga][col]:                         # Vado a sinistra      
-        percorso.append([riga,col])
-        result = Soluzione(pista, dim_riga,dim_col,riga,col-1,percorso,migliore+1)
-        if result > migliore:                                          
-            return migliore                                              
-        percorso.pop()   
+    if col < dim_col - 1 and pista[riga][col + 1] < pista[riga][col]:
+        result = Soluzione(pista, dim_riga, dim_col, riga, col + 1, attuale + 1)
+        max_attuale = max(max_attuale, result)
 
-    if (riga < dim_riga-1 and riga >= 0) and pista[riga+1][col] < pista[riga][col]:                         # Vado a sotto      
-        percorso.append([riga,col])
-        result = Soluzione(pista, dim_riga,dim_col,riga+1,col,percorso,migliore+1)
-        if result > migliore:                                          
-            return migliore                                              
-        percorso.pop()   
+    if col >= 0 and pista[riga][col - 1] < pista[riga][col]:
+        result = Soluzione(pista, dim_riga, dim_col, riga, col - 1, attuale + 1)
+        max_attuale = max(max_attuale, result)
 
-    if (riga < dim_riga-1 and riga >= 0) and pista[riga-1][col] < pista[riga][col]:                         # Vado a sopra      
-        percorso.append([riga,col])
-        result = Soluzione(pista, dim_riga,dim_col,riga-1,col,percorso,migliore+1)
-        if result > migliore:                                          
-            return migliore                                              
-        percorso.pop()                
-    return migliore
+    if riga < dim_riga - 1 and pista[riga + 1][col] < pista[riga][col]:
+        result = Soluzione(pista, dim_riga, dim_col, riga + 1, col, attuale + 1)
+        max_attuale = max(max_attuale, result)
+
+    if riga >= 0 and pista[riga - 1][col] < pista[riga][col]:
+        result = Soluzione(pista, dim_riga, dim_col, riga - 1, col, attuale + 1)
+        max_attuale = max(max_attuale, result)
+
+    return max_attuale
 
 with open("C:\\Users\\GAMING EDGE\\Desktop\\UNI\\1o ANNO\\1o SEMESTRE\\Algoritmi e data structures\\ADS\\Esercitazioni\\Backtracking\\TestCase2.txt", "r") as file:
     num_test = int(file.readline())
@@ -45,14 +39,12 @@ with open("C:\\Users\\GAMING EDGE\\Desktop\\UNI\\1o ANNO\\1o SEMESTRE\\Algoritmi
         for riga in pista:
             print(riga)
 
-        migliore_output = []
+        attuale_output = 0
         for i in range(righe):
             for j in range(col):
-                path = []
-                output = Soluzione(pista, dim_mat[0],dim_mat[1],i,j,path,0)
+                output = Soluzione(pista, righe, col, i, j, 1)
+                attuale_output = max(attuale_output, output)
 
-
-        print(output)
+        print(attuale_output)
 
         num_test -= 1
-
