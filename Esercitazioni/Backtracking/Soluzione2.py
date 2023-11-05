@@ -29,7 +29,7 @@ def Soluzione(pista, dim_riga,dim_col, riga, col, percorso,migliore):
         percorso.pop()                
     return migliore
 
-with open("C:\\Users\\GAMING EDGE\\Desktop\\UNI\\MAGISTRALE\\1o ANNO\\1o SEMESTRE\\Algoritmi e data structures\\ADS\\Esercitazioni\\Backtracking\\TestCase2.txt", "r") as file:
+with open("C:\\Users\\GAMING EDGE\\Desktop\\UNI\\1o ANNO\\1o SEMESTRE\\Algoritmi e data structures\\ADS\\Esercitazioni\\Backtracking\\TestCase2.txt", "r") as file:
     num_test = int(file.readline())
 
     while num_test > 0:
