@@ -23,3 +23,5 @@ if __name__ == "__main__":
     lista = [-1,-3,4,6,-8,8,6,7,-100,5]
     output = trovaSottoArray(lista)
     print(output)
+
+# La complessità qui è O(n) dato che scorro solo una volta la lista di n elementi.

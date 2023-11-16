@@ -102,3 +102,32 @@ if __name__ == "__main__":
     numero = int(input())
     output = Output()
     print("SOLUZIONI TROVATE:", output.numeroSoluzioni(numero))
+
+
+# La complessità è O(N!) dato che esploriamo tutte le possibili combinazioni, date dalle N righe, con N colonne.
+# Dati N il numero di regine da piazzare ed n il numero di regine mancanti:
+
+# La funzione La funzione "controllo posizione" controlla le regine già posizionate, ha un tempo di esecuzione nel caso peggiore di O(N-n).
+# Poiché O(N-n)<O(N), possiamo scrivere O(N-n) = O(N). 
+# Dato che la funzione "prova posizione" itera n volte e per ogni iterazione chiama la funzione "controllo posizione", la complessità temporale totale diverrebbe O(N^2).
+# Però "prova poszione" è ricorsiva, quindi: 
+
+# La chiamata ricorsiva di T(n-1) verrà eseguita n volte perché verrà eseguita solo per le celle sicure. 
+# Dato che abbiamo iniziato riempiendo le righe, non ci saranno più di n (numero di regine rimaste) celle sicure nella riga in ogni caso. 
+# Ciò si traduce in nT(n-1) volte. 
+# 
+# Sommando i risultati otteniamo T(n) = nT(n-1) + O(N^2) mediante l'albero di ricorsione. 
+
+# Sostituisco T(n−1) with O(N^2)+(n−1)T(n−2):
+
+# T(n) = O(N^2)+ n∗(O(N^2)+(n−1)T(n−2))
+# T(n) = O(N^2)+ nO(N^2)+n(n−1)T(n−2)
+
+# Sostituendo T(n−2) with O(N^2)+(n−2)T(n−3):
+
+# T(n) = O(N^2)+ nO(N^2)+n(n−1)(O(N^2)+(n−2)T(n−3)) = O(N^2)+nO(N^2)+ n(n−1)O(N^2)+n(n−1)(n−2)T(n−3)
+
+# Si vede quindi che proseguendo:
+
+# T(n) = O(N^2)(1+n+n(n−1)+n(n−2)+...) + n∗(n−1)∗(n−2)∗(n−3)∗(n−4)∗....∗T(0)
+# T(n) = O(N^2)(O((n−2)!)) + n∗(n−1)∗(n−2)∗(n−3)∗....∗T(0)T(n) = O(N^2)(O((n−2)!))+n∗(n−1)∗(n−2)∗(n−3)∗....∗T(0) = O(N^2)(O((n−2)!))+O(n!) = O(n!) dato che è di ordine superiore 
