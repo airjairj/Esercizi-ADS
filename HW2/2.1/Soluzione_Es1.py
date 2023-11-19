@@ -20,8 +20,16 @@ def trovaSottoArray(lista):
 
 if __name__ == "__main__":
     
-    lista = [-1,-3,4,6,-8,8,6,7,-100,5]
+    lista = [3, 0, 9, -1, 5]
     output = trovaSottoArray(lista)
     print(output)
 
 # La complessità qui è O(n) dato che scorro solo una volta la lista di n elementi.
+
+# Test case
+# Input: [-1, -3, 4, 6, -8, 8, 6, 7, -100, 5]
+# Output: 23
+# Input: [-2, -5, -7, -1, -2]
+# Output: -1
+# Input: [3, 0, 9, -1, 5]
+# Output: 16

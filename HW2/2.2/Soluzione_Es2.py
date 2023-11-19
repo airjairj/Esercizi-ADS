@@ -131,3 +131,11 @@ if __name__ == "__main__":
 
 # T(n) = O(N^2)(1+n+n(n−1)+n(n−2)+...) + n∗(n−1)∗(n−2)∗(n−3)∗(n−4)∗....∗T(0)
 # T(n) = O(N^2)(O((n−2)!)) + n∗(n−1)∗(n−2)∗(n−3)∗....∗T(0)T(n) = O(N^2)(O((n−2)!))+n∗(n−1)∗(n−2)∗(n−3)∗....∗T(0) = O(N^2)(O((n−2)!))+O(n!) = O(n!) dato che è di ordine superiore 
+
+# Test case
+# Input: 4
+# Output: 2
+# Input: 8
+# Output: 92
+# Input: 12 (ci mette un poco)
+# Output: 14200
