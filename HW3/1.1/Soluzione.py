@@ -12,7 +12,6 @@ def calcolo_differenze(valori):
             array[i] = max(array[i], array[i - moneta] + moneta)    # Memoizzo il max tra il valore salvato,
                                                                     # ed il valore precendente + la nuova moneta
 
-    #
     min_diff = val_tot - 2 * array[val_tot // 2]
     print("array post calcoli:\n",array)
 
@@ -32,3 +31,23 @@ while num_test > 0:
     print("OUTPUT:", ris)
 
     num_test -= 1
+
+# Complessità: O(n*s)
+# dove n è il numero di monete ed s è il valore totale delle monete/2
+
+# Casi di test:
+# Input:            (1 caso di test)
+# 5                 (numero monete)
+# 42 23 35 19 40    (monete)
+# Output:
+# 5
+# Input:            (1 caso di test)
+# 8                 (numero monete)
+# 8 5 5 8 5 5 8 5   (monete)
+# Output:
+# 1
+# Input:            (1 caso di test)
+# 5                 (numero monete)
+# 100 99 10 9 2     (monete)
+# Output:
+# 0
