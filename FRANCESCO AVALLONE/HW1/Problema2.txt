@@ -1,0 +1,49 @@
+DESCRIZIONE DELL'ALGORITMO:
+L'algoritmo parte dallo pseudocodice fornito dall'esercizio, e ricostruisce un max heap a partire dalla funzione di max_heap_insert, che a sua volta richiama la funzione di heap_increase_key che assegna al nuovo elemento dell'heap il valore della i_esima posizione nell'array. Rispetto all'algoritmo tradizionale, viene richiamata la funzione di max_heap_insert, e di conseguenza la heap_increase_key, che però costituiscono un heap in cui non è verificata la proprietà di max heap nella radice, dato che la max heap insert viene chiamata a partire dall'indice 2 dell'array; pertanto è stato necessario effettuare un controllo, quando viene assegnato il valore alla nuova foglia dell'heap, per ogni indice i > 0, anziché i > 1.
+
+CODICE PYTHON:
+
+import math
+
+class VettoreHeap:
+    def __init__(self, array):
+        self.array = array
+        self.heap_size = 0
+
+def heap_increase_key(A, i, valore):
+    if valore < A[i]:
+        return
+    A[i] = valore
+    while i > 0 and A[i//2] < A[i]:
+        A[i], A[i//2] = A[i//2], A[i]
+        i = i//2
+
+def max_heap_insert(A, chiave):
+    A.heap_size += 1
+    A.array[A.heap_size] = - math.inf
+    heap_increase_key(A.array, A.heap_size, chiave)
+
+def build_max_heap_v2(A):
+    A.heap_size = 1
+    for i in range(2, len(A.array)):
+        max_heap_insert(A, A.array[i])  
+
+TEST CASE:
+
+Input: [14,8,2,16,7,9,3,10,4,1]
+Output: [16, 14, 9, 10, 4, 7, 3, 8, 2, 1]
+
+Input: [1,2,3,4,5,6,7,8,9,10]
+Output: [10, 9, 8, 6, 7, 3, 1, 5, 2, 4]
+
+Input: [12,23,4,7,11,45,2]
+Output: [45, 12, 23, 7, 4, 11, 2]
+
+DIFFERENZE CON LA VERSIONE ORIGINARIA DEL BUILD_MAX_HEAP:
+
+Questo algoritmo fornisce un heap differente rispetto alla build max heap vista a lezione dato che, a partire dall'array fornito come input del primo test case, la versione originale ci restituisce l'heap: [16, 14, 10, 8, 7, 9, 3, 2, 4, 1], mentre le seconda versione restituisce l'heap: [16, 14, 9, 10, 4, 7, 3, 8, 2, 1]
+
+DIMOSTRAZIONE COMPLESSITA':
+
+La complessità dell'algoritmo è data da 2 principali funzioni: max_heap_insert, che viene richiamata n - 2 volte, che a sua volta richiama la funzione di heap_increase_key, che viene richiamata log(n) volte, dato che si ispeziona l'heap in profondità, la cui altezza è nota ed è pari a log(n). Pertantol'algoritmo avrà un limite superiore pari a O(nlog(n)).
+Al contempo, dovendo richiamare la funzione max_heap_insert n volte e la funzione di heap_increase_key log(n) volte, non sarà possibile avere un tempo di esecuzione inferiore a blog(n), pertanto avremo un limite inferiore pari a Ω(nlog(n)). Essendo limite superiore ed inferiori identici, potremo affermare che la complessità dell'algoritmo risulta essere pari a Θ(nlogn).

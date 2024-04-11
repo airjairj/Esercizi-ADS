@@ -1,0 +1,55 @@
+DESCRIZIONE ALGORITMO:
+L'algoritmo è caratterizzato semplicemente da una funzione che somma il numero di quadrati del numero fino al valore target e, se la somma dei quadrati di un numero risulta proprio essere il target, restituisce il numero di quadrati necessari per ottenere il numero target.
+Qualora il target fosse un quadrato preciso, allora sarà necessario solo un quadrato. Se invece la funzione calcoloQuadrato dovesse fornirci sempre esito negativo, allora saranno necessari un numero di quadrati pari a target, ovvero tutti quadrati di 1.
+
+****NOTA BENE****
+L'algoritmo va utilizzato per trovare il minor numero possibile di quadrati DELLO STESSO NUMERO che ci restituiscono il target. Se si volesse trovare un numero di quadrati con base diversa, l'algoritmo non funzionerebbe.
+
+CODICE PYTHON:
+
+import math
+
+def calcoloQuadrato(target, numero):
+    somma_quadrati = 0
+    numero_quadrati = 0
+    
+    while somma_quadrati < target:
+        somma_quadrati += numero**2
+        numero_quadrati += 1
+
+    if somma_quadrati == target:
+        return numero_quadrati
+    
+    return 0
+
+def numeroMinimoQuadrati(target):
+
+    if isinstance(math.sqrt(target), int):
+        return 1
+    
+    quadrati = []
+    
+    for i in range(1,target-1):
+        
+        numero_quadrati = calcoloQuadrato(target, i)
+        if numero_quadrati == 0:
+            continue 
+        else:
+            quadrati.append(numero_quadrati)
+        
+    
+    if quadrati:
+        return min(quadrati)
+    
+    return target
+
+TEST CASE:
+
+Input: 16
+Output: 1
+
+Input: 50
+Output: 2
+
+Input: 31
+Output: 31

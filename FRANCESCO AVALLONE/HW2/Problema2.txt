@@ -1,0 +1,58 @@
+DESCRIZIONE ALGORITMO:
+L'algoritmo si compone di una funzione di controllo sella sottosequenza, per verificare se gli elementi della sottosequenza sono ordinati in maniera crescente, e restituisce le eventuali sottosequenze. Inoltre l'approccio utilizzato è simile al merge sort, ovvero si suddivide l'array in 2 sotto array e si calcolano le sottosequenze corrispondenti di numeri crescenti. Viene poi creato un array contente l'insieme delle somme delle sottosequenze e viene quindi restituita la somma maggiore delle sottosequenze.
+
+CODICE PYTHON:
+
+def comparoSottosequenze(array):
+    sottosequenza = []
+    sottosequenze = []
+    for i in range (len(array)):
+        if i + 1 < len(array) and array[i] < array[i + 1]:
+            sottosequenza.append(array[i])
+            
+        else:
+            sottosequenza.append(array[i])
+            sottosequenze.append(sottosequenza)
+            sottosequenza = []
+          
+    return sottosequenze
+
+def controlloArray(array):
+    
+    mid = len(array) // 2
+
+    sottosequenze = []
+
+    left = comparoSottosequenze(array[:mid])
+    right = comparoSottosequenze(array[mid:])
+
+    if left[-1][-1] < right[0][0]:
+        left[-1].extend(right[0])
+        right.remove(right[0])
+
+    sottosequenze.extend(left)
+    sottosequenze.extend(right)
+
+    return sottosequenze
+
+
+def controlloSomma(array):
+
+    sottosequenze = controlloArray(array)
+    print(sottosequenze)
+    somme = []
+
+    for sottosequenza in sottosequenze:
+        somme.append(sum(sottosequenza))
+    
+    return max(somme)
+
+TEST CASE:
+Input: [1,2,3,7,9,8]
+Output: 22
+
+Input: [3, 4, 5, 10]
+Output: 22
+
+Input: [10, 5, 4, 3]
+Output: 10

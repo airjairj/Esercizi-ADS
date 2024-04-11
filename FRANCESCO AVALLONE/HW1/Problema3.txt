@@ -1,0 +1,47 @@
+DESCRIZIONE DELL'ALGORITMO:
+L'algoritmo agisce come un classico heapsort con la differenza che, quando deve essere riordinato in ordine crescente, la ricerca viene effettuata solo sugli ultimi n . K + elementi, anziché su tutti gli n elementi. Questo garantisce una complessità di O(n log k)
+
+CODICE PYTHON:
+
+def heapify(array, n, i):
+    massimo = i
+    figlio_sinistro = 2 * i + k - 1
+    figlio_destro = 2 * i + k 
+
+    if figlio_sinistro < n and array[figlio_sinistro] > array[massimo]:
+        massimo = figlio_sinistro
+
+   
+    if figlio_destro < n and array[figlio_destro] > array[massimo]:
+        massimo = figlio_destro
+
+    if massimo != i:
+        array[i], array[massimo] = array[massimo], array[i]
+        heapify(array, n, massimo)
+
+def heap_sort(array, k):
+    
+    n = len(array) 
+
+    for i in range(n//2, - 1, -1):
+        heapify(array, n , i)
+    
+    
+
+    for i in range(n - 1 , 0, -1):
+        array[0], array[i] = array[i], array[0]
+        heapify(array, i, 0)
+
+   
+    return array
+
+TEST CASE:
+
+Input: array = [2, 1, 4, 3, 6, 5, 8, 7, 10, 9], k = 2
+Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+Input: array = [1, 4, 2, 6, 3, 5, 7], k = 3
+Output: [1, 2, 3, 4, 5, 6, 7]
+
+Input: array = [1, 3, 5, 2, 6, 4, 7], k = 3
+Output: [1, 2, 3, 4, 5, 6, 7]

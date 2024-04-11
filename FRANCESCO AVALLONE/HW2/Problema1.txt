@@ -1,0 +1,63 @@
+DESCRIZIONE ALGORITMO:
+L'algoritmo verifica, per ogni casella della matrice, prima se ci sono effettivamente dei percorsi percorribili, poi per ciascuna casella percorribile effettua nuove verifiche sul percorso. Qualora si arrivasse ad un punto cieco, allora viene restituito il percorso trovato. Dopo l'esplorazione di qualsiasi percorso disponibile, restituisce la dimensione del massimo percorso trovato.
+
+CODICE PYTHON:
+
+def controllo(matrice, riga, colonna, x, N, M):
+        disponibili = []
+        
+        if ( colonna < M and riga < N and matrice[riga + 1][colonna + 1] > x ):
+            disponibili.append ([riga + 1, colonna + 1])
+        
+        if (colonna < M and matrice[riga][colonna + 1] > x  ):
+            disponibili.append ([riga, colonna + 1])
+        
+        if (colonna < M and riga > 0 and matrice[riga - 1][colonna + 1] > x):
+            disponibili.append ([ riga - 1,colonna + 1])
+        
+        if (riga < N and matrice[riga + 1][colonna] > x ):
+            disponibili.append( [riga + 1,colonna])
+        
+        if (riga > 0 and matrice[riga - 1][colonna] > x):
+            disponibili.append( [ riga - 1,colonna])
+        
+        if (colonna > 0 and riga > 0 and matrice[riga - 1][colonna - 1] > x):
+            disponibili.append ([ riga - 1,colonna - 1])
+        
+        if (colonna > 0 and matrice[riga][colonna - 1] > x):
+            disponibili.append ([riga,colonna - 1])
+        
+        if (colonna > 0 and riga < N and matrice[riga + 1][colonna - 1] > x):
+            disponibili.append ([riga + 1,colonna - 1])
+
+        return disponibili
+    
+def backtracking(matrice, riga, colonna, N , M, percorso):
+    percorso.append((riga, colonna))
+    posizioni = controllo(matrice, riga, colonna, matrice[riga][colonna], N, M)
+
+    percorsi = [percorso]  
+    for posizione in posizioni:
+        nuovo_percorso = backtracking(matrice, posizione[0], posizione[1], N, M, percorso[:])  
+        print(nuovo_percorso)
+        percorsi.append(nuovo_percorso)
+
+    return max(percorsi, key=len) 
+
+def calcoloPercorso(matrice, N , M, massimoPercorsi):
+    for i in range(N):
+        for j in range(M):
+            result = backtracking(matrice, i, j, N - 1 , M - 1, [])
+            massimoPercorsi.append(len(result))
+    return max(massimoPercorsi)
+
+TEST CASE:
+
+Input: [[10, 25, 14],[37, 52, 48],[63, 79, 31],[44, 20, 56]]
+Output: 6
+
+Input: [[20, 1, 12, 5, 19], [2, 24, 9, 15, 10], [18, 23, 13, 8, 11], [16, 6, 22, 14, 4], [7, 25, 17, 21, 3]]
+Output: 11
+
+Input: [[10, 3, 14, 9], [7, 1, 11, 12], [5, 15, 4, 6], [8, 13, 2, 16]]
+Output: 6

@@ -1,0 +1,46 @@
+DESCRIZIONE ALGORITMO:
+
+L'algoritmo non è altro che una rivisitazione dell'algoritmo dello zaino, ovvero si cerca di massimizzare lo spazio a disposizione per poter, di conseguenza, massimizzare gli introiti dello stadio.
+Si crea prima la tabella contenente gli introiti ottenuti selezionando un gruppo di una determinata composizione anziché un altro.
+Poi si scorre tale tabella al contrario per trovare i gruppi selezionati e che hanno portato alla soluzione massima.
+
+CODICE PYTHON:
+
+def soluzione(capacita, componenti, prezzo):
+
+    tabella = [[0 for _ in range (capacita + 1)] for _ in range (len(componenti) + 1)]
+    gruppi = []
+
+    for i in range(1, len(componenti) + 1):
+        for j in range(1, capacita + 1):
+            if componenti[i - 1] <= j:
+                tabella[i][j] = max(tabella[i - 1][j - componenti[i - 1]] +  prezzo * componenti[i - 1], tabella[i - 1][j])
+                
+            else:
+                tabella[i][j] = tabella[i - 1][j]
+            
+    i = len(componenti)
+    j = capacita
+
+    while i > 0 and j > 0:
+        if tabella[i][j] != tabella[i - 1][j]:
+            gruppi.append(i - 1)
+            j -= componenti[i - 1]
+        i -= 1
+    
+    gruppi_massimi = [componenti[i] for i in gruppi]
+
+   
+    return gruppi_massimi
+
+TEST CASE:
+
+Input: capacità = 10, componenti = [8, 1, 2], prezzo = 50
+Output: [2, 8]
+
+Input: capacità = 100, componenti = [15, 60, 30, 20], prezzo = 50
+Output: [20, 60, 15] 
+
+Input: capacità = 70, componenti = [10, 34, 28, 15, 25, 40], prezzo = 50
+Output: [25, 34, 10]
+
